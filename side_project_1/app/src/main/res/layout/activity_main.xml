@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="403dp"
+        android:layout_height="98dp"
+        android:text="Android side project Alarm and Todo_list"
+        android:textSize="20dp"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.29" />
+
+    <Button
+        android:id="@+id/view_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="알람 보기"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="471dp" />
+
+    <Button
+        android:id="@+id/register_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="알람 등록"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="376dp" />
+
+    <Button
+        android:id="@+id/register_Todo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Todo_list 등록"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="376dp" />
+
+    <Button
+        android:id="@+id/view_Todo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Todo_list 보기"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="471dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
