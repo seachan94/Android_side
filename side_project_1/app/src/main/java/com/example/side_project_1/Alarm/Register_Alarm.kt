@@ -3,15 +3,20 @@ package com.example.side_project_1.Alarm
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.core.view.isInvisible
+import com.example.side_project_1.DATA.AppDB
 import com.example.side_project_1.R
 import kotlinx.android.synthetic.main.register_alarm_view.*
+
 import kotlin.collections.mapIndexed as mapIndexed
 
 class Register_Alarm : AppCompatActivity() {
 
+
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register_alarm_view)
@@ -72,12 +77,12 @@ class Register_Alarm : AppCompatActivity() {
             //반복 주기 off 시 모든 데이터 초기화화
         }
 
-        enroll.setOnClickListener({
-            //시간 찾아서
-            //데이터를 전달 한다.
+        enroll.setOnClickListener {
+            AlarmHandler.Add(this,time_setting.hour,time_setting.minute,retry.isChecked)
+           // AddAlarm1.Add
             //저장되었다는 토스트를 날려준다.
 
-        })
+        }
     }
 
 }

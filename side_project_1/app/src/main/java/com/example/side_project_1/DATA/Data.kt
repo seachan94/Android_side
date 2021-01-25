@@ -8,7 +8,8 @@ import androidx.room.PrimaryKey
 class AlarmData (
     @PrimaryKey(autoGenerate = true) var id: Long=-1,
     var date: String = "",
-    var time: String = "",
+    var hour: Int = -1,
+    var minitue: Int = -1,
     var isRtry: Boolean = false
 )
 
@@ -21,3 +22,5 @@ class TodoData(
     var isRtry: Boolean = false,
     var todoContent : String = ""
 )
+
+class exData(var date : String, var hour : Int , var minitue : Int , var isRtry : Boolean)

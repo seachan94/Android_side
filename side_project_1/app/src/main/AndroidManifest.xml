@@ -20,6 +20,8 @@
 
         <activity android:name = ".Alarm.Register_Alarm"
             tools:ignore="Instantiatable" />
+        <activity android:name = ".Alarm.ViewAlarm"
+            tools:ignore="Instantiatable" />
     </application>
 
 </manifest>
