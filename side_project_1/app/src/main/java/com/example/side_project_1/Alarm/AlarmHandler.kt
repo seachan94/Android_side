@@ -3,6 +3,7 @@ package com.example.side_project_1.Alarm
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TimePicker
 import androidx.annotation.RequiresApi
@@ -30,6 +31,7 @@ object AlarmHandler {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 addAlarm.date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
             }
+
             AlarmDb?.dataDao()?.insertAlarm(addAlarm)
         }
 

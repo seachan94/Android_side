@@ -9,29 +9,7 @@ import com.example.side_project_1.ViewApater.AlarmViewAdapter
 import kotlinx.android.synthetic.main.alarm_recycler_view.*
 
 class ViewAlarm : AppCompatActivity() {
-    var exdataset = arrayListOf<exData>(
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false),
-        exData("S",1,1,false)
-    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.alarm_recycler_view)
@@ -40,8 +18,6 @@ class ViewAlarm : AppCompatActivity() {
 
 
     private fun exAlarmrecyclerview(){
-        val exadapter = AlarmViewAdapter(this,exdataset)
-        alarm_list.adapter = exadapter
 
     }
 }

@@ -78,7 +78,9 @@ class Register_Alarm : AppCompatActivity() {
         }
 
         enroll.setOnClickListener {
+            Log.i("tag","sechan check "+time_setting.hour+" "+time_setting.minute+" "+ retry.isChecked)
             AlarmHandler.Add(this,time_setting.hour,time_setting.minute,retry.isChecked)
+
            // AddAlarm1.Add
             //저장되었다는 토스트를 날려준다.
 
