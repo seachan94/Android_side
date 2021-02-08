@@ -4,9 +4,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+//데이터 형식을 정해준다.
 @Entity(tableName = "DataAlarm")
 class AlarmData (
-    @PrimaryKey(autoGenerate = true) var id: Long=-1,
+    @PrimaryKey(autoGenerate = true) var id: Long=0,
     var date: String = "",
     var hour: Int = -1,
     var minitue: Int = -1,

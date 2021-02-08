@@ -78,7 +78,7 @@ class Register_Alarm : AppCompatActivity() {
         }
 
         enroll.setOnClickListener {
-            Log.i("tag","sechan check "+time_setting.hour+" "+time_setting.minute+" "+ retry.isChecked)
+            //Log.i("tag","sechan check "+time_setting.hour+" "+time_setting.minute+" "+ retry.isChecked)
             AlarmHandler.Add(this,time_setting.hour,time_setting.minute,retry.isChecked)
 
            // AddAlarm1.Add

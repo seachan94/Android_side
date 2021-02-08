@@ -12,7 +12,7 @@ import com.example.side_project_1.DATA.exData
 import com.example.side_project_1.R
 import kotlinx.android.synthetic.main.viewalarm.view.*
 
-class AlarmViewAdapter(val context: Context, val data : List<exData>):
+class AlarmViewAdapter(val context: Context, val data : List<AlarmData>):
         RecyclerView.Adapter<AlarmViewAdapter.Holder>(){
 
 
@@ -23,12 +23,12 @@ class AlarmViewAdapter(val context: Context, val data : List<exData>):
         val minu = view?.minute
         val isRetry = view?.isRetryinview
 
-        fun bind(datas : exData){
+        fun bind(datas : AlarmData?){
             Log.i("TAG", "ex data : ${date}")
-            date?.text = datas.date
-            hour?.text = datas.hour.toString()
-            minu?.text = datas.minitue.toString()
-            isRetry?.text = datas.isRtry.toString()
+            date?.text = datas?.date
+            hour?.text = datas?.hour.toString()
+            minu?.text = datas?.minitue.toString()
+            isRetry?.text = datas?.isRtry.toString()
         }
     }
 
