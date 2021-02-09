@@ -20,7 +20,10 @@ interface AlarmDao {
 
 
     @Query("DELETE FROM DataAlarm WHERE id = :id")
-    fun deletAlarm(id :Long)
+    fun deleteachAlarm(id :Long)
+
+    @Query("DELETE FROM DataAlarm")
+    fun deleteAll()
 
 
 }

@@ -5,14 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.side_project_1.DATA.AlarmData
-import com.example.side_project_1.DATA.exData
 import com.example.side_project_1.R
 import kotlinx.android.synthetic.main.viewalarm.view.*
 
-class AlarmViewAdapter(val context: Context, val data : List<AlarmData>):
+class AlarmViewAdapter(val context: Context, val data: List<AlarmData>?):
         RecyclerView.Adapter<AlarmViewAdapter.Holder>(){
 
 
@@ -24,7 +22,7 @@ class AlarmViewAdapter(val context: Context, val data : List<AlarmData>):
         val isRetry = view?.isRetryinview
 
         fun bind(datas : AlarmData?){
-            Log.i("TAG", "ex data : ${date}")
+
             date?.text = datas?.date
             hour?.text = datas?.hour.toString()
             minu?.text = datas?.minitue.toString()
@@ -39,13 +37,18 @@ class AlarmViewAdapter(val context: Context, val data : List<AlarmData>):
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        if (data != null) {
+            return data.size
+        }
+        return 0
     }
 
     override fun onBindViewHolder(holder: AlarmViewAdapter.Holder, position: Int) {
-        Log.i("TAG", "Bind ${data[position]}")
-        return holder.bind(data[position])
+
+        return holder.bind(data?.get(position))
     }
+
+
 
 
 

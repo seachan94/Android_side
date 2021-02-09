@@ -45,8 +45,10 @@ object AlarmHandler {
     public interface OnLoadData {
         fun onLoad(alarmDatas: List<AlarmData>)
     }
+
     public fun getAlarmList(context : Context, onLoadData: OnLoadData){
         var AlarmDb = AppDB.getInstance(context)
+
         val getRunnable = Runnable {
             var Alarms = AlarmDb?.dataDao()?.getAllAlarm()
             if(Alarms == null)Alarms = listOf<AlarmData>()
@@ -60,4 +62,30 @@ object AlarmHandler {
 
 
     }
+
+    //Alarm 전체 삭제
+    public fun deleteAllhandler(context : Context){
+
+        val delAllThread = Thread(
+            Runnable{
+            var AlarmDb = AppDB.getInstance(context)
+            AlarmDb?.dataDao()?.deleteAll()
+        }
+        )
+
+        delAllThread.start()
+    }
+
+    //각각 알람 삭제
+    public fun deleteEach(context : Context,idx : Long){
+        val delEachThread = Thread(
+            Runnable{
+                var AlarmDb = AppDB.getInstance(context)
+                AlarmDb?.dataDao()?.deleteachAlarm(idx)
+            }
+        )
+        delEachThread.start()
+        Log.i("tag","sechan delechh "+idx)
+    }
+
 }
