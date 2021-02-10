@@ -6,4 +6,5 @@ side _project
 [2021- 01 - 25] Commit Db & RecyclerView   
 [2021 - 02 - 05] check git status & change viewalarm.xml   
 [2021 - 02 - 08] Apply Enroll DB System   
-[2021 - 02 - 09] Aplly Delete DB System ( ALL DELETE ) Doing Redraw Alarm View 
+[2021 - 02 - 09] Apply Delete DB System ( ALL DELETE ) Doing Redraw Alarm View   
+[2021 - 02 - 10] refreash AlarmView
