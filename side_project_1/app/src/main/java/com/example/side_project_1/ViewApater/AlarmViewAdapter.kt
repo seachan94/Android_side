@@ -10,7 +10,7 @@ import com.example.side_project_1.DATA.AlarmData
 import com.example.side_project_1.R
 import kotlinx.android.synthetic.main.viewalarm.view.*
 
-class AlarmViewAdapter(val context: Context, val data: List<AlarmData>?):
+class AlarmViewAdapter(val context: Context, var data: List<AlarmData>?):
         RecyclerView.Adapter<AlarmViewAdapter.Holder>(){
 
 
@@ -38,7 +38,7 @@ class AlarmViewAdapter(val context: Context, val data: List<AlarmData>?):
 
     override fun getItemCount(): Int {
         if (data != null) {
-            return data.size
+            return data!!.size
         }
         return 0
     }
