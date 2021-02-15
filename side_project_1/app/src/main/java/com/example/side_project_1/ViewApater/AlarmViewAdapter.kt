@@ -44,8 +44,11 @@ class AlarmViewAdapter(val context: Context, var data: List<AlarmData>?):
     }
 
     override fun onBindViewHolder(holder: AlarmViewAdapter.Holder, position: Int) {
-
         return holder.bind(data?.get(position))
+    }
+
+    fun positionInfo(){
+        return
     }
 
 

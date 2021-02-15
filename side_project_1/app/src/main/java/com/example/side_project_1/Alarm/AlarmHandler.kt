@@ -52,14 +52,12 @@ object AlarmHandler {
         val getRunnable = Runnable {
             var Alarms = AlarmDb?.dataDao()?.getAllAlarm()
             if(Alarms == null)Alarms = listOf<AlarmData>()
-            Alarms.mapIndexed { index, alarmData ->
-                Log.d("tag","sechan chekc data "+alarmData.date)
-            }
+            Log.i("tag","sechan "+Alarms)
             onLoadData.onLoad(Alarms)
+
         }
         val getThread = Thread(getRunnable)
         getThread.start()
-
 
     }
 
@@ -78,6 +76,7 @@ object AlarmHandler {
 
     //각각 알람 삭제
     public fun deleteEach(context : Context,idx : Long){
+
         val delEachThread = Thread(
             Runnable{
                 var AlarmDb = AppDB.getInstance(context)
