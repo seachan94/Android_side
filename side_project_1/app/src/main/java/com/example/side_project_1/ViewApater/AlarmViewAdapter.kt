@@ -6,11 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.side_project_1.Alarm.AlarmHandler
 import com.example.side_project_1.DATA.AlarmData
 import com.example.side_project_1.R
 import kotlinx.android.synthetic.main.viewalarm.view.*
 
-class AlarmViewAdapter(val context: Context, var data: List<AlarmData>?):
+class AlarmViewAdapter(
+    val context: Context,
+    var data: List<AlarmData>?
+):
         RecyclerView.Adapter<AlarmViewAdapter.Holder>(){
 
 
@@ -20,6 +24,7 @@ class AlarmViewAdapter(val context: Context, var data: List<AlarmData>?):
         val hour = view?.hour
         val minu = view?.minute
         val isRetry = view?.isRetryinview
+        val delBtn = view?.eachdelete
 
         fun bind(datas : AlarmData?){
 
@@ -27,6 +32,24 @@ class AlarmViewAdapter(val context: Context, var data: List<AlarmData>?):
             hour?.text = datas?.hour.toString()
             minu?.text = datas?.minitue.toString()
             isRetry?.text = datas?.isRtry.toString()
+
+            /*delBtn?.setOnClickListener {
+                object : AlarmHandler.OnLoadData {
+                    override fun onLoad(alarmDatas: List<AlarmData>): Int {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun getPosition(): Long {
+                        TODO("Not yet implemented")
+                    }
+
+                    fun returnPosition(alarmDatas: List<AlarmData>): Int {
+                        return position
+                    }
+                }
+            }*/
+
+
         }
     }
 
@@ -43,16 +66,9 @@ class AlarmViewAdapter(val context: Context, var data: List<AlarmData>?):
         return 0
     }
 
-    override fun onBindViewHolder(holder: AlarmViewAdapter.Holder, position: Int) {
+    override fun onBindViewHolder(holder: AlarmViewAdapter.Holder,position:Int) {
+        Log.i("tag","sechan check onBind")
         return holder.bind(data?.get(position))
     }
-
-    fun positionInfo(){
-        return
-    }
-
-
-
-
 
 }

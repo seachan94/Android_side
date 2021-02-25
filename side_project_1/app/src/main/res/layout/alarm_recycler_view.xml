@@ -17,7 +17,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/alarm_list"
         android:layout_width="match_parent"
-        android:layout_height="443dp"
+        android:layout_height="626dp"
         android:orientation="vertical"
         android:scrollbarFadeDuration="0"
         android:scrollbarSize="5dp"

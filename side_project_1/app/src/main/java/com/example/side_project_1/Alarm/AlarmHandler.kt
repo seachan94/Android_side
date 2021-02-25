@@ -1,19 +1,11 @@
 package com.example.side_project_1.Alarm
 
 import android.content.Context
-import android.content.Intent
 import android.os.Build
-import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.TimePicker
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import com.example.side_project_1.DATA.AlarmData
 import com.example.side_project_1.DATA.AppDB
-import com.example.side_project_1.R
-import kotlinx.android.synthetic.main.register_alarm_view.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -33,7 +25,6 @@ object AlarmHandler {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 addAlarm.date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
             }
-            Log.i("Tag","sechan check log");
             AlarmDb?.dataDao()?.insertAlarm(addAlarm)
         }
 
@@ -43,16 +34,17 @@ object AlarmHandler {
 
 
     public interface OnLoadData {
-        fun onLoad(alarmDatas: List<AlarmData>)
+        fun onLoad(alarmDatas: List<AlarmData>): Int
+        fun getPosition(): Long
     }
 
-    public fun getAlarmList(context : Context, onLoadData: OnLoadData){
+
+    public fun getAlarmList(context : Context, onLoadData: OnLoadData){ 
         var AlarmDb = AppDB.getInstance(context)
 
         val getRunnable = Runnable {
             var Alarms = AlarmDb?.dataDao()?.getAllAlarm()
             if(Alarms == null)Alarms = listOf<AlarmData>()
-            Log.i("tag","sechan "+Alarms)
             onLoadData.onLoad(Alarms)
 
         }
@@ -70,14 +62,14 @@ object AlarmHandler {
             AlarmDb?.dataDao()?.deleteAll()
         }
         )
-
+        Log.i("tag","sechan check thread "+delAllThread);
         delAllThread.start()
     }
 
     //각각 알람 삭제
-    public fun deleteEach(context : Context,idx : Long){
+    public fun deleteEach(context: Context, idx: Long, onLoadData: OnLoadData){
 
-        val delEachThread = Thread(
+       /* val delEachThread = Thread(
             Runnable{
                 var AlarmDb = AppDB.getInstance(context)
                 AlarmDb?.dataDao()?.deleteachAlarm(idx)
@@ -85,6 +77,9 @@ object AlarmHandler {
         )
         delEachThread.start()
         Log.i("tag","sechan delechh "+idx)
+*/
+
     }
+
 
 }

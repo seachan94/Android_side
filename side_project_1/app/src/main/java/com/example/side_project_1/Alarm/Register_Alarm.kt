@@ -3,6 +3,7 @@ package com.example.side_project_1.Alarm
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
@@ -25,6 +26,7 @@ class Register_Alarm : AppCompatActivity() {
         retry.setOnCheckedChangeListener { _, isChecked ->
             layout.isInvisible = !isChecked
         }
+
         allday.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 for (element in days) {
@@ -32,6 +34,7 @@ class Register_Alarm : AppCompatActivity() {
                 }
             }
         }
+
         notweek.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 days.mapIndexed { index, appCompatCheckBox ->
@@ -41,6 +44,7 @@ class Register_Alarm : AppCompatActivity() {
             }
 
         }
+
         week.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 days.mapIndexed { index, appCompatCheckBox ->
@@ -78,11 +82,16 @@ class Register_Alarm : AppCompatActivity() {
         }
 
         enroll.setOnClickListener {
-            //Log.i("tag","sechan check "+time_setting.hour+" "+time_setting.minute+" "+ retry.isChecked)
             AlarmHandler.Add(this,time_setting.hour,time_setting.minute,retry.isChecked)
 
-           // AddAlarm1.Add
             //저장되었다는 토스트를 날려준다.
+            val Msg = time_setting.hour.toString() + " 시 " + time_setting.minute.toString() + " 분 알람 등록"
+            Toast.makeText(
+                this,
+                Msg,
+                Toast.LENGTH_SHORT
+            ).show()
+
 
         }
     }

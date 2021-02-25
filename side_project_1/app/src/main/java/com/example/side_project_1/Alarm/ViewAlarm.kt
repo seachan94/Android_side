@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.alarm_recycler_view.*
 import kotlinx.android.synthetic.main.viewalarm.*
 
 class ViewAlarm : AppCompatActivity() {
+
     var Adapter : AlarmViewAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,40 +27,48 @@ class ViewAlarm : AppCompatActivity() {
 
         deletall.setOnClickListener {
             delAll(this)
-            Alarmrecyclerview(this)
-            AlarmViewAdapter(this,null).notifyDataSetChanged()
-            Log.i("tag","sechan check changeView")
-
         }
+        // ?-> 없으면 왜 안됨?
 
-       /* eachdelete.setOnClickListener{
+        eachdelete?.setOnClickListener{
+            Log.i("tag","sechan check ")
             delEach()
-        }*/
+        }
     }
 
-    public fun initRecyclerView(context: Context){
 
-    }
     //data 없으면 꺼짐
     private fun Alarmrecyclerview(context: Context) {
+
         val alarmsList = getAlarmList(this,
             object : AlarmHandler.OnLoadData {
 
-            override fun onLoad(alarmDatas: List<AlarmData>) {
+            override fun onLoad(alarmDatas: List<AlarmData>): Int {
                 Adapter?.data = alarmDatas
                 Adapter?.notifyDataSetChanged()
+                return 0
             }
-        })
+
+                override fun getPosition(): Long {
+                    return -1
+                }
+            })
+
     }
     private fun delAll(context: Context) {
         deleteAllhandler(this)
+
         Adapter?.notifyDataSetChanged()
     }
 
     private fun delEach() {
 
-        deleteEach(this, 1)
-        Log.i("tag","sechan ceasd")
-       // Adapter?.notifyDataSetChanged()
+
+        //Log.i("tag","sechan check position "+position)
+        //deleteEach(this,position)
+        //Adapter?.notifyDataSetChanged()
     }
+
+
+
 }
