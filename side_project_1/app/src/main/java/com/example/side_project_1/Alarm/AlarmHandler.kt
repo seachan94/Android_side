@@ -35,7 +35,6 @@ object AlarmHandler {
 
     public interface OnLoadData {
         fun onLoad(alarmDatas: List<AlarmData>): Int
-        fun getPosition(): Long
     }
 
 
@@ -67,17 +66,21 @@ object AlarmHandler {
     }
 
     //각각 알람 삭제
-    public fun deleteEach(context: Context, idx: Long, onLoadData: OnLoadData){
+    public fun deleteEach(context: Context, idx: Long?, onLoadData: OnLoadData){
 
-       /* val delEachThread = Thread(
+        val delEachThread = Thread(
             Runnable{
                 var AlarmDb = AppDB.getInstance(context)
                 AlarmDb?.dataDao()?.deleteachAlarm(idx)
+
+
+                var Alarms = AlarmDb?.dataDao()?.getAllAlarm()
+                if(Alarms == null)Alarms = listOf<AlarmData>()
+                onLoadData.onLoad(Alarms)
             }
         )
         delEachThread.start()
-        Log.i("tag","sechan delechh "+idx)
-*/
+
 
     }
 

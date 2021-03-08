@@ -6,17 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.side_project_1.Alarm.AlarmHandler
 import com.example.side_project_1.DATA.AlarmData
 import com.example.side_project_1.R
 import kotlinx.android.synthetic.main.viewalarm.view.*
 
 class AlarmViewAdapter(
     val context: Context,
-    var data: List<AlarmData>?
+    var data: List<AlarmData>?,
+    val onClickDeleteListener: OnClickEvent?
 ):
         RecyclerView.Adapter<AlarmViewAdapter.Holder>(){
 
+
+    public interface OnClickEvent {
+        fun onClickDelete(id: Long?)
+    }
 
     // ? -> !!
     inner class Holder(view : View?):RecyclerView.ViewHolder(view!!){
@@ -26,30 +30,16 @@ class AlarmViewAdapter(
         val isRetry = view?.isRetryinview
         val delBtn = view?.eachdelete
 
-        fun bind(datas : AlarmData?){
+        fun bind(datas: AlarmData?){
 
             date?.text = datas?.date
             hour?.text = datas?.hour.toString()
             minu?.text = datas?.minitue.toString()
             isRetry?.text = datas?.isRtry.toString()
 
-            /*delBtn?.setOnClickListener {
-                object : AlarmHandler.OnLoadData {
-                    override fun onLoad(alarmDatas: List<AlarmData>): Int {
-                        TODO("Not yet implemented")
-                    }
-
-                    override fun getPosition(): Long {
-                        TODO("Not yet implemented")
-                    }
-
-                    fun returnPosition(alarmDatas: List<AlarmData>): Int {
-                        return position
-                    }
-                }
-            }*/
-
-
+            delBtn?.setOnClickListener {
+                onClickDeleteListener?.onClickDelete(datas?.id)
+            }
         }
     }
 

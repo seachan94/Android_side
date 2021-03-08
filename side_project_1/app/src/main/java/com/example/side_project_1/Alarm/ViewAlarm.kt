@@ -1,74 +1,88 @@
-package com.example.side_project_1.Alarm
+    package com.example.side_project_1.Alarm
 
-import android.content.Context
-import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import com.example.side_project_1.Alarm.AlarmHandler.deleteAllhandler
-import com.example.side_project_1.Alarm.AlarmHandler.deleteEach
-import com.example.side_project_1.Alarm.AlarmHandler.getAlarmList
-import com.example.side_project_1.DATA.AlarmData
-import com.example.side_project_1.R
-import com.example.side_project_1.ViewApater.AlarmViewAdapter
-import kotlinx.android.synthetic.main.alarm_recycler_view.*
-import kotlinx.android.synthetic.main.viewalarm.*
+    import android.content.Context
+    import android.os.Bundle
+    import android.util.Log
+    import androidx.appcompat.app.AppCompatActivity
+    import com.example.side_project_1.Alarm.AlarmHandler.deleteAllhandler
+    import com.example.side_project_1.Alarm.AlarmHandler.deleteEach
+    import com.example.side_project_1.Alarm.AlarmHandler.getAlarmList
+    import com.example.side_project_1.DATA.AlarmData
+    import com.example.side_project_1.R
+    import com.example.side_project_1.ViewApater.AlarmViewAdapter
+    import kotlinx.android.synthetic.main.alarm_recycler_view.*
+    import kotlinx.android.synthetic.main.viewalarm.*
 
-class ViewAlarm : AppCompatActivity() {
+    class ViewAlarm : AppCompatActivity(), AlarmViewAdapter.OnClickEvent {
 
-    var Adapter : AlarmViewAdapter? = null
+        var Adapter : AlarmViewAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.alarm_recycler_view)
-        Alarmrecyclerview(this)
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.alarm_recycler_view)
+            Alarmrecyclerview(this)
 
-        Adapter = AlarmViewAdapter(this, arrayListOf())
-        alarm_list.adapter = Adapter
+            Adapter = AlarmViewAdapter(this, arrayListOf(), this)
 
-        deletall.setOnClickListener {
-            delAll(this)
-        }
-        // ?-> 없으면 왜 안됨?
+            alarm_list.adapter = Adapter
 
-        eachdelete?.setOnClickListener{
-            Log.i("tag","sechan check ")
-            delEach()
-        }
-    }
-
-
-    //data 없으면 꺼짐
-    private fun Alarmrecyclerview(context: Context) {
-
-        val alarmsList = getAlarmList(this,
-            object : AlarmHandler.OnLoadData {
-
-            override fun onLoad(alarmDatas: List<AlarmData>): Int {
-                Adapter?.data = alarmDatas
-                Adapter?.notifyDataSetChanged()
-                return 0
+            deletall.setOnClickListener {
+                delAll(this)
             }
+            // ?-> 없으면 왜 안됨?
 
-                override fun getPosition(): Long {
-                    return -1
-                }
-            })
+            eachdelete?.setOnClickListener{
+                Log.i("tag","sechan check ")
+                delEach()
+            }
+        }
+
+
+        //data 없으면 꺼짐
+        private fun Alarmrecyclerview(context: Context) {
+
+            val alarmsList = getAlarmList(this,
+                object : AlarmHandler.OnLoadData {
+
+                    override fun onLoad(alarmDatas: List<AlarmData>): Int {
+                        Adapter?.data = alarmDatas
+                        Adapter?.notifyDataSetChanged()
+                        Log.i("tag", "sechan 1: " + Thread.currentThread())
+                        return 0
+                    }
+                })
+
+        }
+        private fun delAll(context: Context) {
+            deleteAllhandler(this)
+            Adapter?.data = arrayListOf();
+            Adapter?.notifyDataSetChanged()
+        }
+
+        private fun delEach() {
+
+
+            //Log.i("tag","sechan check position "+position)
+            //deleteEach(this,position)
+            //Adapter?.notifyDataSetChanged()
+        }
+
+        override fun onClickDelete(id: Long?) {
+            val context = this;
+           deleteEach(this,id,object : AlarmHandler.OnLoadData {
+
+               override fun onLoad(alarmDatas: List<AlarmData>): Int {
+                   runOnUiThread(Runnable {
+
+                       Adapter?.data = alarmDatas
+                       Adapter?.notifyDataSetChanged()
+                       Log.i("tag", "sechan 2: " + Thread.currentThread())
+                   })
+                   return 0
+               }
+           });
+
+        }
+
 
     }
-    private fun delAll(context: Context) {
-        deleteAllhandler(this)
-
-        Adapter?.notifyDataSetChanged()
-    }
-
-    private fun delEach() {
-
-
-        //Log.i("tag","sechan check position "+position)
-        //deleteEach(this,position)
-        //Adapter?.notifyDataSetChanged()
-    }
-
-
-
-}
