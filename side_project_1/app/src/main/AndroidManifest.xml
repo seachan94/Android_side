@@ -22,6 +22,8 @@
             tools:ignore="Instantiatable" />
         <activity android:name = ".Alarm.ViewAlarm"
             tools:ignore="Instantiatable" />
+        <activity android:name = ".To_do.RegisterTodo"
+            tools:ignore = "Instantiatable"/>
     </application>
 
 </manifest>

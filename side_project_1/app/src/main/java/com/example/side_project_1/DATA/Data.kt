@@ -16,7 +16,7 @@ class AlarmData (
 
 @Entity(tableName = "DataTodo")
 class TodoData(
-    @PrimaryKey(autoGenerate = true)var id: Long = -1,
+    @PrimaryKey(autoGenerate = true)var id: Long = 0,
     var isAlarm : Boolean = false,
     var date: String = "",
     var time: String = "",

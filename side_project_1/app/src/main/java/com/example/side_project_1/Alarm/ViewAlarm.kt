@@ -29,12 +29,6 @@
             deletall.setOnClickListener {
                 delAll(this)
             }
-            // ?-> 없으면 왜 안됨?
-
-            eachdelete?.setOnClickListener{
-                Log.i("tag","sechan check ")
-                delEach()
-            }
         }
 
 
@@ -47,7 +41,6 @@
                     override fun onLoad(alarmDatas: List<AlarmData>): Int {
                         Adapter?.data = alarmDatas
                         Adapter?.notifyDataSetChanged()
-                        Log.i("tag", "sechan 1: " + Thread.currentThread())
                         return 0
                     }
                 })
@@ -59,14 +52,6 @@
             Adapter?.notifyDataSetChanged()
         }
 
-        private fun delEach() {
-
-
-            //Log.i("tag","sechan check position "+position)
-            //deleteEach(this,position)
-            //Adapter?.notifyDataSetChanged()
-        }
-
         override fun onClickDelete(id: Long?) {
             val context = this;
            deleteEach(this,id,object : AlarmHandler.OnLoadData {
@@ -76,7 +61,7 @@
 
                        Adapter?.data = alarmDatas
                        Adapter?.notifyDataSetChanged()
-                       Log.i("tag", "sechan 2: " + Thread.currentThread())
+
                    })
                    return 0
                }
