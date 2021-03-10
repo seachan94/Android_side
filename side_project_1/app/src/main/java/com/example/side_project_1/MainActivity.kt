@@ -7,6 +7,7 @@ import android.util.Log
 import com.example.side_project_1.Alarm.Register_Alarm
 import com.example.side_project_1.Alarm.ViewAlarm
 import com.example.side_project_1.To_do.RegisterTodo
+import com.example.side_project_1.To_do.viewTodo
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +28,10 @@ class MainActivity : AppCompatActivity() {
 
         register_Todo.setOnClickListener{
             clickButton<RegisterTodo>()
+        }
+
+        view_Todo.setOnClickListener{
+            clickButton<viewTodo>()
         }
     }
 
