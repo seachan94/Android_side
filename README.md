@@ -11,4 +11,5 @@ side _project
 [2021 - 02 - 25] refreash all code   
 [2021 - 03 - 08] delete alarm fun - fin   
 [2021 - 03 - 09] Add todo Register   
-[2021 - 03 - 10] Add todo View (register)
+[2021 - 03 - 10] Add todo View (register)   
+[2021 - 04 - 08] Add todo deadline data
