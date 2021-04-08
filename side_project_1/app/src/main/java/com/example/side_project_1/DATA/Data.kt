@@ -20,6 +20,7 @@ class TodoData(
     var isAlarm : Boolean = false,
     var date: String = "",
     var time: String = "",
+    var deadline :String = "",
     var isRtry: Boolean = false,
     var todoContent : String = ""
 )

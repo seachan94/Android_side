@@ -19,7 +19,7 @@ object TodoHandler {
 
 
 
-    public fun AddTodo(context : Context, todomsg : String){
+    public fun AddTodo(context : Context, todomsg : String, date: String){
         //DB intsance를 불러와야 한다
 
         var TodoDB = AppDBTodo.getInstance(context)
@@ -27,11 +27,12 @@ object TodoHandler {
         val addRunnable = Runnable {
             val todoData = TodoData()
             todoData.todoContent = todomsg
+            todoData.deadline = date
             TodoDB?.dataDao()?.insertTodo(todoData)
         }
         val addThread = Thread(addRunnable)
         addThread.start()
-        Log.i("tag","sechan check Log add "+todomsg)
+        Log.i("tag","sechan check Log add "+todomsg +" "+date)
     }
 
 
