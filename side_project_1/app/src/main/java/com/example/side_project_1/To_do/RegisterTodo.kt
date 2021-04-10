@@ -1,7 +1,9 @@
 package com.example.side_project_1.To_do
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
@@ -22,14 +24,15 @@ class RegisterTodo: AppCompatActivity() {
         setContentView(R.layout.register_todo_view)
 
         btnregister.setOnClickListener() {
+
             enrollBtnfun()
+
+
         }
         deadline.setOnClickListener(){
             selectDeadline()
         }
     }
-
-
     private fun enrollBtnfun(){
         val todo = TodoText.text.toString();
 
@@ -43,14 +46,21 @@ class RegisterTodo: AppCompatActivity() {
         }
 
         else{
-            val Msg =todo + "가 저장되었어요 : )"
-            Toast.makeText(
-                this,
-                Msg,
-                Toast.LENGTH_SHORT
-            ).show()
+            if("" == deadlinetime){
 
-            TodoHandler.AddTodo(this,todo,deadlinetime)
+                confirmDeadline(todo)
+            }
+            else{
+                val Msg =todo + "가 저장되었어요 : )"
+                Toast.makeText(
+                    this,
+                    Msg,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                TodoHandler.AddTodo(this,todo,deadlinetime)
+            }
+
         }
 
     }
@@ -93,6 +103,24 @@ class RegisterTodo: AppCompatActivity() {
         }
 
         timeDialog.show()
+
+    }
+    private fun confirmDeadline(todo : String){
+        AlertDialog.Builder(this)
+            .setTitle("마감일을 미등록 하시나요?")
+            .setPositiveButton("오냐",DialogInterface.OnClickListener {dialog, which ->
+                val Msg =todo + "가 저장되었어요 : )"
+                Toast.makeText(
+                    this,
+                    Msg,
+                    Toast.LENGTH_SHORT
+                ).show()
+                TodoHandler.AddTodo(this,todo,deadlinetime)
+            })
+            .setNegativeButton("큰일날뻔 : (",DialogInterface.OnClickListener({dialog,which->
+                selectDeadline()
+            }))
+            .show()
 
     }
 }
