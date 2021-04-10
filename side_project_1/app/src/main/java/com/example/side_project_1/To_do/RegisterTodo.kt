@@ -57,8 +57,9 @@ class RegisterTodo: AppCompatActivity() {
                     Msg,
                     Toast.LENGTH_SHORT
                 ).show()
-
+                init()
                 TodoHandler.AddTodo(this,todo,deadlinetime)
+
             }
 
         }
@@ -108,19 +109,24 @@ class RegisterTodo: AppCompatActivity() {
     private fun confirmDeadline(todo : String){
         AlertDialog.Builder(this)
             .setTitle("마감일을 미등록 하시나요?")
-            .setPositiveButton("오냐",DialogInterface.OnClickListener {dialog, which ->
+            .setNeutralButton("오냐",DialogInterface.OnClickListener {dialog, which ->
                 val Msg =todo + "가 저장되었어요 : )"
                 Toast.makeText(
                     this,
                     Msg,
                     Toast.LENGTH_SHORT
                 ).show()
+                init()
                 TodoHandler.AddTodo(this,todo,deadlinetime)
             })
-            .setNegativeButton("큰일날뻔 : (",DialogInterface.OnClickListener({dialog,which->
+            .setPositiveButton("큰일날뻔 : (",DialogInterface.OnClickListener({dialog,which->
                 selectDeadline()
             }))
             .show()
 
+    }
+    private fun init(){
+        deadlinetime = ""
+        TodoText.setText("")
     }
 }
