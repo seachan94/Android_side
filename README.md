@@ -13,14 +13,9 @@ side _project
 [2021 - 03 - 09] Add todo Register   
 [2021 - 03 - 10] Add todo View (register)   
 [2021 - 04 - 08] Add todo deadline data   
-   
-   
-   
-   
-   
-##[2021 - 04 - 10] 
+#[2021 - 04 - 10] 
     
-     TODO :
+    ## TODO :
     1. Todo List 적용시 마감기한 미 입력시 사용자에게 재질문
 
       - 문구 : 마감일을 미등록 하시나요?
