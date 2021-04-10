@@ -49,4 +49,14 @@ object TodoHandler {
         getThread.start()
 
     }
+    public fun deletAllTodo(context:Context){
+        var TodoDB = AppDBTodo.getInstance(context)
+        val delRunnable = Thread (
+            Runnable {
+                TodoDB?.dataDao()?.deleteAll()
+            }
+        )
+        delRunnable.start()
+
+    }
 }

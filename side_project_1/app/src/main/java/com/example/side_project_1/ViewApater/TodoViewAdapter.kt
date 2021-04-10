@@ -15,8 +15,13 @@ class TodoViewAdapter(val context: Context, var datas: List<TodoData>?): Recycle
 
     inner class Holder(view: View?):RecyclerView.ViewHolder(view!!){
         val content = view?.todocontent
+        val deadline = view?.tododeadline
         fun bind(data : TodoData?){
             content?.text = data?.todoContent
+            if(data?.deadline != ""){
+
+                deadline?.text = data?.deadline
+            }
         }
     }
 

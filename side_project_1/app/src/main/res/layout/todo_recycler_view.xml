@@ -29,7 +29,7 @@
         android:id="@+id/tododelall"
         android:layout_width="184dp"
         android:layout_height="61dp"
-        android:text="알람 전체 삭제" />
+        android:text="일정 전체 삭제" />
 
 
 </LinearLayout>

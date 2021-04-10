@@ -2,9 +2,11 @@ package com.example.side_project_1.To_do
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.side_project_1.DATA.TodoData
 import com.example.side_project_1.R
+import com.example.side_project_1.To_do.TodoHandler.deletAllTodo
 import com.example.side_project_1.To_do.TodoHandler.getTodoList
 import com.example.side_project_1.ViewApater.AlarmViewAdapter
 
@@ -26,6 +28,9 @@ class viewTodo: AppCompatActivity() {
         loadTodoData(this)
 
         todo_list.adapter = Adapter
+        tododelall.setOnClickListener {
+            dellAll(this)
+        }
 
 
     }
@@ -41,5 +46,10 @@ class viewTodo: AppCompatActivity() {
 
         }
             )
+    }
+    private fun dellAll (context : Context){
+        deletAllTodo(context)
+        Adapter?.datas = arrayListOf()
+        Adapter?.notifyDataSetChanged()
     }
 }
