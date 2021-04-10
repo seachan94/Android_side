@@ -1,12 +1,7 @@
 package com.example.side_project_1.To_do
 
 import android.content.Context
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
-import com.example.side_project_1.Alarm.AlarmHandler
-import com.example.side_project_1.DATA.AlarmData
-import com.example.side_project_1.DATA.AppDB
 import com.example.side_project_1.DATA.AppDBTodo
 import com.example.side_project_1.DATA.TodoData
 
@@ -54,9 +49,26 @@ object TodoHandler {
         val delRunnable = Thread (
             Runnable {
                 TodoDB?.dataDao()?.deleteAll()
+
             }
         )
         delRunnable.start()
 
     }
+    public fun deleteEach(context: Context, id: Long?, onLoadTodo: OnLoadTodoData){
+       val delEachThread = Thread(
+           Runnable{
+               var ToDoDB = AppDBTodo.getInstance(context)
+               ToDoDB?.dataDao()?.deleteachTodo(id)
+
+               var Todo = ToDoDB?.dataDao()?.getAllTodo()
+               if(Todo == null)Todo = listOf<TodoData>()
+               onLoadTodo.onLoad(Todo)
+
+           }
+       )
+        delEachThread.start()
+    }
+
+
 }

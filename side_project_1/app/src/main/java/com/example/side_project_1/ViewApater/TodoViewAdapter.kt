@@ -11,16 +11,28 @@ import com.example.side_project_1.R
 import kotlinx.android.synthetic.main.viewtodo.view.*
 
 
-class TodoViewAdapter(val context: Context, var datas: List<TodoData>?): RecyclerView.Adapter<TodoViewAdapter.Holder>() {
+class TodoViewAdapter(
+    val context: Context,
+    var datas: List<TodoData>?,
+    val onclickDeleteEvent : onClickEvent):
+    RecyclerView.Adapter<TodoViewAdapter.Holder>() {
 
+    public interface onClickEvent{
+        fun onClickDelete(id : Long?)
+    }
     inner class Holder(view: View?):RecyclerView.ViewHolder(view!!){
         val content = view?.todocontent
         val deadline = view?.tododeadline
+        val delEachbtn = view?.todoeachdel
+
         fun bind(data : TodoData?){
             content?.text = data?.todoContent
             if(data?.deadline != ""){
 
                 deadline?.text = data?.deadline
+            }
+            delEachbtn?.setOnClickListener {
+                onclickDeleteEvent.onClickDelete(data?.id)
             }
         }
     }

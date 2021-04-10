@@ -2,19 +2,17 @@ package com.example.side_project_1.To_do
 
 import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.side_project_1.DATA.TodoData
 import com.example.side_project_1.R
 import com.example.side_project_1.To_do.TodoHandler.deletAllTodo
+import com.example.side_project_1.To_do.TodoHandler.deleteEach
 import com.example.side_project_1.To_do.TodoHandler.getTodoList
-import com.example.side_project_1.ViewApater.AlarmViewAdapter
 
 import com.example.side_project_1.ViewApater.TodoViewAdapter
-import kotlinx.android.synthetic.main.alarm_recycler_view.*
 import kotlinx.android.synthetic.main.todo_recycler_view.*
 
-class viewTodo: AppCompatActivity() {
+class viewTodo: AppCompatActivity() ,TodoViewAdapter.onClickEvent{
     //adapter 추가
     var Adapter : TodoViewAdapter? = null
 
@@ -24,7 +22,7 @@ class viewTodo: AppCompatActivity() {
 
 
 
-        Adapter = TodoViewAdapter(this, arrayListOf())
+        Adapter = TodoViewAdapter(this, arrayListOf(),this)
         loadTodoData(this)
 
         todo_list.adapter = Adapter
@@ -52,4 +50,21 @@ class viewTodo: AppCompatActivity() {
         Adapter?.datas = arrayListOf()
         Adapter?.notifyDataSetChanged()
     }
+
+
+    override fun onClickDelete(id: Long?) {
+        val context = this
+        deleteEach(context,id,object :TodoHandler.OnLoadTodoData{
+            override fun onLoad(TodoDatas: List<TodoData>): Int {
+                runOnUiThread(Runnable{
+                    Adapter?.datas = TodoDatas
+                    Adapter?.notifyDataSetChanged()
+                })
+                return 0
+            }
+        })
+
+    }
+
+
 }
