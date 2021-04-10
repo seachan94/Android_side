@@ -88,7 +88,7 @@ class RegisterTodo: AppCompatActivity() {
         val timeDialog = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             TimePickerDialog(
                 this,
-                R.style.sechanTheme,
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
                 object:TimePickerDialog.OnTimeSetListener{
                     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
                         deadlinetime += hourOfDay.toString() + minute.toString()
@@ -102,7 +102,7 @@ class RegisterTodo: AppCompatActivity() {
         } else {
             TODO("VERSION.SDK_INT < N")
         }
-
+        timeDialog.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent);
         timeDialog.show()
 
     }
