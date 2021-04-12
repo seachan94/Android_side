@@ -32,3 +32,14 @@ side _project
 
 
     5.각각의 Todo 일정 삭제 해결
+
+   
+## [2021 - 04 - 12 ]   
+
+    ##TODO :
+    
+    1. Alarm Manager 복습
+    2. alarmReceivcer 추가
+    3. calendar setting
+
+
