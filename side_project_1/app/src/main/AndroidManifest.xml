@@ -26,6 +26,11 @@
             tools:ignore = "Instantiatable"/>
         <activity android:name = ".To_do.viewTodo"
             tools:ignore = "Instantiatable"/>
+        <receiver android:name=".Receiver.alarmReceiver" >
+            <intent-filter>
+                <action android:name="com.check.up.setAlarm"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
