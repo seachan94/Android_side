@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -113,9 +114,9 @@ class Register_Alarm : AppCompatActivity() {
     private fun startAlarm(hour : Int, min :Int){
         //init calendar
 
-        calendar.set(Calendar.YEAR, 2021)
-        calendar.set(Calendar.MONTH,4)
-        calendar.set(Calendar.DAY_OF_MONTH,12)
+        //calendar.set(Calendar.YEAR, 2021)
+        //calendar.set(Calendar.MONTH,3)
+        //calendar.set(Calendar.DAY_OF_MONTH,)
         calendar.set(Calendar.HOUR_OF_DAY,hour)
         calendar.set(Calendar.MINUTE,min)
         calendar.set(Calendar.SECOND,0)
@@ -129,8 +130,17 @@ class Register_Alarm : AppCompatActivity() {
 
         val alarmManger = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val pendingIntent = PendingIntent.getBroadcast(this,0,alarmIntent,PendingIntent.FLAG_CANCEL_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            0,
+            alarmIntent,
+            PendingIntent.FLAG_CANCEL_CURRENT
+        )
+
+        Log.i("tag","sechan check time "+calendar.timeInMillis )
         alarmManger.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,calendar.timeInMillis,pendingIntent)
+        //반복알람 하고 싶다면 interval 삽입하면 됨
+        //예를 들면 주기성
 
     }
 }

@@ -10,6 +10,7 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.core.content.getSystemService
 
 class alarmReceiver : BroadcastReceiver() {
 
@@ -22,6 +23,8 @@ class alarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.i("tag","sechan Alarm Receiver")
+
+        notificationManager = context?.getSystemService( Context.NOTIFICATION_SERVICE) as NotificationManager
 
     }
 
