@@ -78,4 +78,7 @@ side _project
     - getid in AlarmHandler -> 전체 삭제시 alarm DB에 id 값을 구하기 위해 만들어진 함수
     - cancelAlarm in AlarmHandler -> 전체 삭제 & 각각 삭제시 id 값에 따라 알람 취소 해줌
 
-
+    next todo 
+    1. 알람 Noti
+    2.  알람 등록시 AlarmManager RequestId 조정
+   
