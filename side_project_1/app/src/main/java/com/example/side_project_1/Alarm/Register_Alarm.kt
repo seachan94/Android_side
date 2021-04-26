@@ -96,8 +96,8 @@ class Register_Alarm : AppCompatActivity() {
 
         enroll.setOnClickListener {
 
-            AlarmHandler.Add(this,time_setting.hour,time_setting.minute,retry.isChecked)
-            startAlarm(time_setting.hour,time_setting.minute)
+            val idvalue = AlarmHandler.Add(this,time_setting.hour,time_setting.minute,retry.isChecked)
+            startAlarm(time_setting.hour,time_setting.minute,retry.isChecked,idvalue)
 
             //저장되었다는 토스트를 날려준다.
             val Msg = time_setting.hour.toString() + " 시 " + time_setting.minute.toString() + " 분 알람 등록"
@@ -111,7 +111,7 @@ class Register_Alarm : AppCompatActivity() {
         }
     }
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun startAlarm(hour : Int, min :Int){
+    private fun startAlarm(hour : Int, min :Int,retry : Boolean,id : Long){
         //init calendar
 
         //calendar.set(Calendar.YEAR, 2021)
@@ -126,19 +126,37 @@ class Register_Alarm : AppCompatActivity() {
             action = "com.check.up.setAlarm"
         }
 
+
+
         //system service 중 alarm service 가져옴
 
         val alarmManger = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val pendingIntent = PendingIntent.getBroadcast(
             this,
-            0,
+            id.toInt(),
             alarmIntent,
             PendingIntent.FLAG_CANCEL_CURRENT
         )
 
         Log.i("tag","sechan check time "+calendar.timeInMillis )
-        alarmManger.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,calendar.timeInMillis,pendingIntent)
+
+        if(!retry) {
+            alarmManger.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                pendingIntent
+            )
+        }
+        else{
+            alarmManger.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent
+
+            )
+        }
         //반복알람 하고 싶다면 interval 삽입하면 됨
         //예를 들면 주기성
 

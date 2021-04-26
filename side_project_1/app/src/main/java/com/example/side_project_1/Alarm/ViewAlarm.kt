@@ -2,16 +2,15 @@
 
     import android.content.Context
     import android.os.Bundle
-    import android.util.Log
     import androidx.appcompat.app.AppCompatActivity
     import com.example.side_project_1.Alarm.AlarmHandler.deleteAllhandler
     import com.example.side_project_1.Alarm.AlarmHandler.deleteEach
     import com.example.side_project_1.Alarm.AlarmHandler.getAlarmList
+    import com.example.side_project_1.Alarm.AlarmHandler.getid
     import com.example.side_project_1.DATA.AlarmData
     import com.example.side_project_1.R
     import com.example.side_project_1.ViewApater.AlarmViewAdapter
     import kotlinx.android.synthetic.main.alarm_recycler_view.*
-    import kotlinx.android.synthetic.main.viewalarm.*
 
     class ViewAlarm : AppCompatActivity(), AlarmViewAdapter.OnClickEvent {
 
@@ -43,10 +42,28 @@
                         Adapter?.notifyDataSetChanged()
                         return 0
                     }
+
+                    override fun onLoadIdx(idxarr: List<Long?>): Long {
+                        TODO("Not yet implemented")
+                    }
                 })
 
         }
         private fun delAll(context: Context) {
+
+            getid(context,
+                object : AlarmHandler.OnLoadData{
+                    override fun onLoad(alarmDatas: List<AlarmData>): Int {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onLoadIdx(idxarr: List<Long?>): Long {
+                        AlarmHandler.CancelAlarm(context,idxarr)
+                        return 0;
+                    }
+
+                })
+
             deleteAllhandler(this)
             Adapter?.data = arrayListOf();
             Adapter?.notifyDataSetChanged()
@@ -54,7 +71,10 @@
 
         override fun onClickDelete(id: Long?) {
             val context = this;
-           deleteEach(this,id,object : AlarmHandler.OnLoadData {
+            val idlist = listOf(id)
+
+            AlarmHandler.CancelAlarm(this,idlist)
+            deleteEach(this,id,object : AlarmHandler.OnLoadData {
 
                override fun onLoad(alarmDatas: List<AlarmData>): Int {
                    runOnUiThread(Runnable {
@@ -64,6 +84,10 @@
 
                    })
                    return 0
+               }
+
+               override fun onLoadIdx(idxarr: List<Long?>): Long {
+                   TODO("Not yet implemented")
                }
            });
 

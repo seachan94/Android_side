@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.side_project_1.Alarm.AlarmHandler
 import com.example.side_project_1.DATA.AlarmData
 import com.example.side_project_1.R
 import kotlinx.android.synthetic.main.viewalarm.view.*
@@ -39,6 +40,7 @@ class AlarmViewAdapter(
 
             delBtn?.setOnClickListener {
                 onClickDeleteListener?.onClickDelete(datas?.id)
+
             }
         }
     }

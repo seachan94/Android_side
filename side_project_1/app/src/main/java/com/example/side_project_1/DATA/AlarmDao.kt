@@ -25,5 +25,8 @@ interface AlarmDao {
     @Query("DELETE FROM DataAlarm")
     fun deleteAll()
 
+    @Query("SELECT id FROM DataAlarm")
+    fun getAllid():List<Long>
+
 
 }
