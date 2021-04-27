@@ -67,5 +67,18 @@ side _project
 
     pendingIntent : 알림이 울렸을때 수행한 작업을 명시하며 receiver를 사용합니다
 
+## [2021 - 04 - 26]
+
+    ##TODO
+    
+    1. Alarm 삭제 시 Alarm Manager에 등록 된 Alarm 취소 -> 전체 삭제/ 각각 삭제 모두 완료
+    2. Alarm 등록시 반복성이라면 (주기성? ) setRepeating을 이용해 interval 걸어줌 ( 하루 기준)
 
     
+    - getid in AlarmHandler -> 전체 삭제시 alarm DB에 id 값을 구하기 위해 만들어진 함수
+    - cancelAlarm in AlarmHandler -> 전체 삭제 & 각각 삭제시 id 값에 따라 알람 취소 해줌
+
+    next todo 
+    1. 알람 Noti
+    2.  알람 등록시 AlarmManager RequestId 조정
+   
