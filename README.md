@@ -82,3 +82,12 @@ side _project
     1. 알람 Noti
     2.  알람 등록시 AlarmManager RequestId 조정
    
+## [2021 - 04 - 27]
+
+    ##TODO
+    
+    1. DB 저장시 바로 id 값 가져와 알람 매니저에 등록
+    2. 알람 등록시 id값 처리하는 방법 동기화 처리
+        -> 비동기 동작임으로 ALARMID 가 설정이 되지 않고 처리 된다.
+        
+        
