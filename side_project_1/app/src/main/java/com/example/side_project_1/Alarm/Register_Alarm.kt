@@ -6,20 +6,16 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.SystemClock
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.core.view.isInvisible
-import com.example.side_project_1.DATA.AppDB
 import com.example.side_project_1.R
 import com.example.side_project_1.Receiver.alarmReceiver
 import kotlinx.android.synthetic.main.register_alarm_view.*
+import java.text.SimpleDateFormat
 import java.util.*
-
-import kotlin.collections.mapIndexed as mapIndexed
 
 class Register_Alarm : AppCompatActivity() {
 
@@ -31,7 +27,7 @@ class Register_Alarm : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register_alarm_view)
         val days = arrayOf(monday, tuesday, wednesday, thursday, friday, saturday, sunday)
-        val select = arrayOf(allday,notweek,week)
+        val select = arrayOf(allday, notweek, week)
 
 
 
@@ -96,42 +92,66 @@ class Register_Alarm : AppCompatActivity() {
 
         enroll.setOnClickListener {
 
-            val idvalue = AlarmHandler.Add(this,time_setting.hour,time_setting.minute,retry.isChecked)
-            startAlarm(time_setting.hour,time_setting.minute,retry.isChecked,idvalue)
+            AlarmHandler.Add(this, time_setting.hour, time_setting.minute, retry.isChecked,
+                object : AlarmHandler.AlarmM {
+                    override fun getid(
+                        hour: Int,
+                        min: Int,
+                        retry: Boolean,
+                        id: Long,
+                        context: Context
+                    ) {
+                        val Msg =
+                            time_setting.hour.toString() + " 시 " + time_setting.minute.toString() + " 분 알람 등록"
+                        if (id == -1L) {
+                            runOnUiThread(Runnable {
+                                Toast.makeText(
+                                    context,
+                                    Msg + "실패",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            })
+                            return
+                        }
 
-            //저장되었다는 토스트를 날려준다.
-            val Msg = time_setting.hour.toString() + " 시 " + time_setting.minute.toString() + " 분 알람 등록"
-            Toast.makeText(
-                this,
-                Msg,
-                Toast.LENGTH_SHORT
-            ).show()
+                        startAlarm(hour, min, retry, id)
+                        //저장되었다는 토스트를 날려준다.
+                        runOnUiThread(Runnable {
 
+                            Toast.makeText(
+                                context,
+                                Msg,
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        })
+
+                    }
+
+                })
 
         }
     }
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun startAlarm(hour : Int, min :Int,retry : Boolean,id : Long){
+    private fun startAlarm(hour: Int, min: Int, retry: Boolean, id: Long){
         //init calendar
 
-        //calendar.set(Calendar.YEAR, 2021)
-        //calendar.set(Calendar.MONTH,3)
-        //calendar.set(Calendar.DAY_OF_MONTH,)
-        calendar.set(Calendar.HOUR_OF_DAY,hour)
-        calendar.set(Calendar.MINUTE,min)
-        calendar.set(Calendar.SECOND,0)
+        calendar.set(Calendar.HOUR_OF_DAY, hour)
+        calendar.set(Calendar.MINUTE, min)
+        calendar.set(Calendar.SECOND, 0)
 
 
-        val alarmIntent = Intent(this,alarmReceiver::class.java).apply{
+        val alarmIntent = Intent(this, alarmReceiver::class.java).apply{
             action = "com.check.up.setAlarm"
         }
-
+        val sdf = SimpleDateFormat("yyyy / MM / dd / HH:mm:ss")
+        val datestr: String = sdf.format(calendar.getTime())
+       alarmIntent.putExtra("time",datestr)
 
 
         //system service 중 alarm service 가져옴
 
         val alarmManger = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
         val pendingIntent = PendingIntent.getBroadcast(
             this,
             id.toInt(),
@@ -139,7 +159,6 @@ class Register_Alarm : AppCompatActivity() {
             PendingIntent.FLAG_CANCEL_CURRENT
         )
 
-        Log.i("tag","sechan check time "+calendar.timeInMillis )
 
         if(!retry) {
             alarmManger.setExactAndAllowWhileIdle(

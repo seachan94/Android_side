@@ -92,7 +92,6 @@ class RegisterTodo: AppCompatActivity() {
                 object:TimePickerDialog.OnTimeSetListener{
                     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
                         deadlinetime += hourOfDay.toString() + minute.toString()
-                        Log.i("tag","sechan check final "+deadlinetime)
                     }
 
                 },

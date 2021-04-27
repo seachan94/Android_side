@@ -67,6 +67,7 @@
             deleteAllhandler(this)
             Adapter?.data = arrayListOf();
             Adapter?.notifyDataSetChanged()
+            checkAlarm()
         }
 
         override fun onClickDelete(id: Long?) {
@@ -90,8 +91,10 @@
                    TODO("Not yet implemented")
                }
            });
-
+            checkAlarm()
         }
 
+        public fun checkAlarm(){
 
+        }
     }

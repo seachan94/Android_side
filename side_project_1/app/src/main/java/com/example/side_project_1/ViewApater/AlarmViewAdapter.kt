@@ -59,7 +59,6 @@ class AlarmViewAdapter(
     }
 
     override fun onBindViewHolder(holder: AlarmViewAdapter.Holder,position:Int) {
-        Log.i("tag","sechan check onBind")
         return holder.bind(data?.get(position))
     }
 

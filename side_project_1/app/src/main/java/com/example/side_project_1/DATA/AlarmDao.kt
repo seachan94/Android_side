@@ -16,8 +16,7 @@ interface AlarmDao {
     //onConflict의 의미는 동일 primary key가 있을 때 덮어 쓴다는 의미이다.
     //1 = REPLACE
     @Insert(onConflict = 1)
-    fun insertAlarm(alarmData:AlarmData)
-
+    fun insertAlarm(alarmData:AlarmData):Long
 
     @Query("DELETE FROM DataAlarm WHERE id = :id")
     fun deleteachAlarm(id: Long?)

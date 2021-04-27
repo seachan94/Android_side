@@ -8,6 +8,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
@@ -22,10 +23,15 @@ class alarmReceiver : BroadcastReceiver() {
     lateinit var notificationManager : NotificationManager
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        Log.i("tag","sechan Alarm Receiver")
 
         notificationManager = context?.getSystemService( Context.NOTIFICATION_SERVICE) as NotificationManager
-
+        Log.i("tag","sechan check inner recievr")
+        val time = intent?.getStringExtra("time")
+        Toast.makeText(
+            context,
+            time,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 

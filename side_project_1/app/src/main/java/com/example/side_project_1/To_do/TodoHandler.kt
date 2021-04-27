@@ -27,7 +27,6 @@ object TodoHandler {
         }
         val addThread = Thread(addRunnable)
         addThread.start()
-        Log.i("tag","sechan check Log add "+todomsg +" "+date)
     }
 
 

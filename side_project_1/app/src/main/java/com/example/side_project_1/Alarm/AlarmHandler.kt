@@ -15,16 +15,23 @@ import java.time.format.DateTimeFormatter
 
 object AlarmHandler {
 
+    public interface AlarmM{
+        fun getid(hour : Int, min :Int,retry : Boolean,id : Long,context :Context)
+    }
+    public interface OnLoadData {
+        fun onLoad(alarmDatas: List<AlarmData>): Int
+        fun onLoadIdx(idxarr : List<Long?>):Long
+    }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    public fun Add(context : Context, hour : Int, minute : Int, isRetry : Boolean): Long {
+    public fun Add(context : Context, hour : Int, minute : Int, isRetry : Boolean,setalarm : AlarmM) {
 
-        var alarmid =1;//db id값 저장
+        var alarmid : Long = 0;//db id값 저장
 
         var AlarmDb=AppDB.getInstance(context)
-
+        val addAlarm = AlarmData()
         val addRunnable = Runnable{
-            val addAlarm = AlarmData()
+
             addAlarm.hour = hour
             addAlarm.minitue = minute
             addAlarm.isRtry = isRetry
@@ -32,19 +39,21 @@ object AlarmHandler {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 addAlarm.date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
             }
-            AlarmDb?.dataDao()?.insertAlarm(addAlarm)
-        }
+           val check =  AlarmDb?.dataDao()?.insertAlarm(addAlarm)
+
+            if(check != null)alarmid = check
+
+            setalarm.getid(hour,minute,isRetry,alarmid,context)
+            Log.i("tag","sechan check alarmid1 "+alarmid)
+           }
 
         val addThread = Thread(addRunnable)
         addThread.start()
-        return alarmid.toLong()
+
     }
 
 
-    public interface OnLoadData {
-        fun onLoad(alarmDatas: List<AlarmData>): Int
-        fun onLoadIdx(idxarr : List<Long?>):Long
-    }
+
 
 
     public fun getAlarmList(context : Context, onLoadData: OnLoadData){ 
@@ -113,7 +122,7 @@ object AlarmHandler {
     }
 
     public fun CancelAlarm(context: Context, arr: List<Long?>){
-        Log.i("tag","sechan inner cancel "+arr.size)
+
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val alarmIntent = Intent(context,alarmReceiver::class.java).apply{
@@ -122,7 +131,6 @@ object AlarmHandler {
 
         arr.map{
             if(it != null){
-                Log.i("tag","sechan check in it "+it)
                 val pIntent = PendingIntent.getBroadcast(context,it.toInt(),alarmIntent,PendingIntent.FLAG_CANCEL_CURRENT)
                 alarmManager.cancel(pIntent)
                 pIntent.cancel()
