@@ -95,4 +95,15 @@ side _project
     
     1. 알람 노티 UI 그리기
     
+## [2021 - 05 - 03]
+
+    ##TODO
+    
+    1. 알람 noti UI 그리기
+        
+        해당 사항은 img 넣고 font 넣는 것으로 대체 ...(오랜만에 해보고 싶었음)
+        
+    WHAT U KNOW?
+    
+        1. FLAG_ACTIVITY_NEW_TASK -> Activity가 아닌 클래스에서 startActivity를 통해 activitiy 실행시 이를 처리해주는 코드 필요
         
