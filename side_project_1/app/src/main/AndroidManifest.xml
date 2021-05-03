@@ -31,6 +31,7 @@
                 <action android:name="com.check.up.setAlarm"/>
             </intent-filter>
         </receiver>
+        <activity android:name=".Receiver.View"/>
     </application>
 
 </manifest>

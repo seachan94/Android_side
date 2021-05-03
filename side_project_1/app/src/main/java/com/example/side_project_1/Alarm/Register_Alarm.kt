@@ -140,15 +140,15 @@ class Register_Alarm : AppCompatActivity() {
         calendar.set(Calendar.MINUTE, min)
         calendar.set(Calendar.SECOND, 0)
 
-
+        val sdf = SimpleDateFormat("yyyy / MM / dd / HH:mm:ss")
+        val datestr: String = sdf.format(calendar.getTime())
         val alarmIntent = Intent(this, alarmReceiver::class.java).apply{
             action = "com.check.up.setAlarm"
         }
-        val sdf = SimpleDateFormat("yyyy / MM / dd / HH:mm:ss")
-        val datestr: String = sdf.format(calendar.getTime())
-       alarmIntent.putExtra("time",datestr)
-
-
+        alarmIntent.putExtra("time",datestr)
+        alarmIntent.putExtra("isTodo",false)
+        alarmIntent.putExtra("isRetry",retry)
+        alarmIntent.putExtra("alarmid",id)
         //system service 중 alarm service 가져옴
 
         val alarmManger = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -171,6 +171,7 @@ class Register_Alarm : AppCompatActivity() {
             alarmManger.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,
+
                 AlarmManager.INTERVAL_DAY,
                 pendingIntent
 
