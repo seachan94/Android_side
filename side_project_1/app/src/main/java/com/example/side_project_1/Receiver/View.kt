@@ -21,6 +21,7 @@ class View : AppCompatActivity() {
     }
 
     public fun setText(isTodo : Boolean){
-        viewtext.text = "알람 맞췄는데 안볼꺼면 \n 왜 맞춤..?...?"
+        if(!isTodo)viewtext.text = "알람 맞췄는데 안볼꺼면 \n 왜 맞춤..?...?"
+        else viewtext.text = "할일 다 햇냐....?"
     }
 }

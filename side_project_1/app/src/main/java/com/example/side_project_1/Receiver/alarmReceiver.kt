@@ -16,11 +16,10 @@ import androidx.core.content.getSystemService
 import com.example.side_project_1.Alarm.AlarmHandler
 import com.example.side_project_1.Alarm.AlarmHandler.OnLoadData
 import com.example.side_project_1.DATA.AlarmData
+import com.example.side_project_1.DATA.TodoData
+import com.example.side_project_1.To_do.TodoHandler
 
 class alarmReceiver : BroadcastReceiver() {
-
-
-    lateinit var notificationManager : NotificationManager
 
     override fun onReceive(context: Context?, intent: Intent?) {
 
@@ -58,6 +57,13 @@ class alarmReceiver : BroadcastReceiver() {
                     }
 
                 })
+        }
+        else{
+            TodoHandler.deleteEach(context,id-10000,object: TodoHandler.OnLoadTodoData{
+                override fun onLoad(TodoDatas: List<TodoData>): Int {
+                    TODO("Not yet implemented")
+                }
+            })
         }
     }
 

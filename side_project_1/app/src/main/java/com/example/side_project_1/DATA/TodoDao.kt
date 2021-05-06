@@ -12,7 +12,7 @@ interface TodoDao {
 
 
     @Insert(onConflict = 1)
-    fun insertTodo(todoData : TodoData)
+    fun insertTodo(todoData : TodoData):Long
 
     @Query("DELETE FROM DataTodo WHERE id = :id")
     fun deleteachTodo(id: Long?)

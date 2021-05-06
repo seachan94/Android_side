@@ -11,10 +11,13 @@ object TodoHandler {
     public interface OnLoadTodoData {
         fun onLoad(TodoDatas: List<TodoData>): Int
     }
+    public interface TODOM{
+        fun getid(todomsg : String, date: String,id : Long)
+    }
 
 
 
-    public fun AddTodo(context : Context, todomsg : String, date: String){
+    public fun AddTodo(context : Context, todomsg : String, date: String,settodo:TODOM){
         //DB intsance를 불러와야 한다
 
         var TodoDB = AppDBTodo.getInstance(context)
@@ -23,7 +26,8 @@ object TodoHandler {
             val todoData = TodoData()
             todoData.todoContent = todomsg
             todoData.deadline = date
-            TodoDB?.dataDao()?.insertTodo(todoData)
+            val check = TodoDB?.dataDao()?.insertTodo(todoData)
+            if(check!=null)settodo.getid(todomsg,date,check)
         }
         val addThread = Thread(addRunnable)
         addThread.start()
