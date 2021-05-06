@@ -6,8 +6,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
@@ -63,13 +61,13 @@ class RegisterTodo: AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
                 init()
-                TodoHandler.AddTodo(this,todo,deadlinetime,
-                object : TodoHandler.TODOM{
-                    @RequiresApi(Build.VERSION_CODES.M)
-                    override fun getid(todomsg: String, date: String, id: Long){
-                        setalarmmanger(id,false)
-                    }
-                })
+                TodoHandler.AddTodo(this, todo, deadlinetime,
+                    object : TodoHandler.TODOM {
+                        @RequiresApi(Build.VERSION_CODES.M)
+                        override fun getid(todomsg: String, date: String, id: Long) {
+                            setalarmmanger(id, false)
+                        }
+                    })
 
             }
 
@@ -79,11 +77,11 @@ class RegisterTodo: AppCompatActivity() {
     private fun selectDeadline(){
 
         val dialog = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            DatePickerDialog(this, object: DatePickerDialog.OnDateSetListener{
+            DatePickerDialog(this, object : DatePickerDialog.OnDateSetListener {
 
                 override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
 
-                    deadlinetime = year.toString()+month.toString()+dayOfMonth.toString()
+                    deadlinetime = year.toString() + month.toString() + dayOfMonth.toString()
                     timePicker()
 
                 }
@@ -100,13 +98,14 @@ class RegisterTodo: AppCompatActivity() {
             TimePickerDialog(
                 this,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
-                object:TimePickerDialog.OnTimeSetListener{
+                object : TimePickerDialog.OnTimeSetListener {
                     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
                         deadlinetime += hourOfDay.toString() + minute.toString()
                     }
 
                 },
-           0,0,true )
+                0, 0, true
+            )
 
 
         } else {
@@ -116,25 +115,25 @@ class RegisterTodo: AppCompatActivity() {
         timeDialog.show()
 
     }
-    private fun confirmDeadline(todo : String){
+    private fun confirmDeadline(todo: String){
         AlertDialog.Builder(this)
             .setTitle("마감일을 미등록 하시나요?")
-            .setNeutralButton("오냐",DialogInterface.OnClickListener {dialog, which ->
-                val Msg =todo + "가 저장되었어요 : )"
+            .setNeutralButton("오냐", DialogInterface.OnClickListener { dialog, which ->
+                val Msg = todo + "가 저장되었어요 : )"
                 Toast.makeText(
                     this,
                     Msg,
                     Toast.LENGTH_SHORT
                 ).show()
                 init()
-                TodoHandler.AddTodo(this,todo,deadlinetime ,object : TodoHandler.TODOM{
+                TodoHandler.AddTodo(this, todo, deadlinetime, object : TodoHandler.TODOM {
                     @RequiresApi(Build.VERSION_CODES.M)
-                    override fun getid(todomsg: String, date: String, id: Long){
-                        setalarmmanger(id,false)
+                    override fun getid(todomsg: String, date: String, id: Long) {
+                        setalarmmanger(id, false)
                     }
                 })
             })
-            .setPositiveButton("큰일날뻔 : (",DialogInterface.OnClickListener { dialog, which ->
+            .setPositiveButton("큰일날뻔 : (", DialogInterface.OnClickListener { dialog, which ->
                 selectDeadline()
             })
             .show()
@@ -146,7 +145,7 @@ class RegisterTodo: AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    public fun setalarmmanger( id:Long, retry: Boolean){
+    public fun setalarmmanger(id: Long, retry: Boolean){
         var calendar = Calendar.getInstance()
 
         val sdf = SimpleDateFormat("yyyy / MM / dd / HH:mm:ss")
@@ -157,15 +156,16 @@ class RegisterTodo: AppCompatActivity() {
         val alarmIntent = Intent(this, alarmReceiver::class.java).apply{
             action = "com.check.up.setAlarm"
         }
-        alarmIntent.putExtra("time",datestr)
-        alarmIntent.putExtra("isTodo",true)
-        alarmIntent.putExtra("isRetry",retry)
-        alarmIntent.putExtra("alarmid",id)
+        alarmIntent.putExtra("time", datestr)
+        alarmIntent.putExtra("isTodo", true)
+        alarmIntent.putExtra("isRetry", retry)
+        alarmIntent.putExtra("alarmid", id)
+        alarmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
         val alarmManger = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val pendingIntent = PendingIntent.getBroadcast(
             this,
-            id.toInt()+10000,
+            id.toInt() + 10000,
             alarmIntent,
             PendingIntent.FLAG_CANCEL_CURRENT
         )

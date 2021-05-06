@@ -150,6 +150,7 @@ class Register_Alarm : AppCompatActivity() {
         alarmIntent.putExtra("isRetry",retry)
         alarmIntent.putExtra("alarmid",id)
         //system service 중 alarm service 가져옴
+        alarmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
         val alarmManger = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val pendingIntent = PendingIntent.getBroadcast(
