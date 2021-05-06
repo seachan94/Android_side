@@ -114,3 +114,8 @@ side _project
     
     1. TODO 알람 기능 추가
     2. 앱을 끄더라도 알람 울릴 수 있도록 하는 기능 추가 
+
+        1. FLAG_ACTIVITY_CLEAR_TOP : Task 내에 해당 속성이 적용된 activity 부터 top activity 까지 모두 제거한뒤 해당 activity 를 활성화 하여 top 이 되도록 한다.
+        2. FLAG_ACTIVITY_NEW_TASK : 새로운 태스크를 생성하여 그 태스크안에 엑티비티를 추가.
+        3. FLAG_ACTIVITY_SINGLE_TOP : 엑티비티를 호출할 경우 호출된 엑티비티가 현재 태스크의 최상단에 존재하고 있었다면 새로운 인스턴스를 생성하지 않음
+
