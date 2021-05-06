@@ -108,3 +108,9 @@ side _project
         1. FLAG_ACTIVITY_NEW_TASK -> Activity가 아닌 클래스에서 startActivity를 통해 activitiy 실행시 이를 처리해주는 코드 필요
         
         
+## [2021 - 05 - 06 ]
+
+    ##TODO 
+    
+    1. TODO 알람 기능 추가
+    2. 앱을 끄더라도 알람 울릴 수 있도록 하는 기능 추가 
